@@ -35,12 +35,12 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (success && mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Login Successful! ✅'),
-            backgroundColor: Colors.green,
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('Login Successful! ✅'),
+        //     backgroundColor: Colors.green,
+        //   ),
+        // );
         // Navigate to home
         Navigator.pushReplacementNamed(context, '/home');
       } else if (mounted && authViewModel.errorMessage != null) {

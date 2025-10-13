@@ -25,14 +25,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFF6B35).withOpacity(0.7),
+        backgroundColor: const Color(0xFFFF6B35).withOpacity(0.8),
         elevation: 0,
-        title: const Text(
-          'Profile',
-          style: TextStyle(color: Colors.white),
-        ),
+
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -49,11 +46,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 30),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFFF6B35),
+                  decoration:  BoxDecoration(
+                    color: Color(0xFFFF6B35).withOpacity(0.8),
                     borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50),
                     ),
                   ),
                   child: Column(

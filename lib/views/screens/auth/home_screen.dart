@@ -1,5 +1,11 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:gps/views/screens/compain_screen.dart';
+import 'package:gps/views/screens/my_vehicle_screen.dart';
+import 'package:gps/views/screens/setting_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../../view_models/weather_viewmodel.dart';
 import '../map_screen.dart';
 import '../profile_screen.dart';
 import '../../../view_models/auth_viewmodels.dart';
@@ -13,12 +19,26 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  int activeIndex = 0;
+  final List<String> bannerImages = [
+    'assets/images/bannerImg1.png',
+    'assets/images/bannerImg2.png',
+    'assets/images/bannerImg3.png',
+    'assets/images/bannerImg4.png',
+    'assets/images/bannerImg5.png',
+    'assets/images/bannerImg6.png',
+    'assets/images/bannerImg7.png',
+    'assets/images/bannerImg8.png',
+    'assets/images/bannerImg9.png',
+    'assets/images/bannerImg10.png',
+  ];
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<UserViewModel>().loadUserData();
+      context.read<WeatherViewModel>().fetchWeather();
     });
   }
 
@@ -29,24 +49,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
     switch (index) {
       case 0:
-      // Already on home
         break;
       case 1:
-      // TODO: Navigate to Delivery/Vehicles screen
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Delivery screen coming soon')),
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MyVehicleScreen()),
         );
         break;
       case 2:
-      // TODO: Navigate to Orders screen
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Orders screen coming soon')),
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ComplainScreen(),
+          ),
         );
         break;
       case 3:
-      // TODO: Navigate to Settings screen
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Settings screen coming soon')),
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SettingScreen(),
+          ),
         );
         break;
     }
@@ -59,17 +82,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(18),
             child: Consumer<UserViewModel>(
               builder: (context, userViewModel, child) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Top Bar
+                    // 🔝 Top Bar
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Profile Image - Tappable
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -103,13 +125,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: const Icon(Icons.notifications_outlined, size: 30),
+                          icon: const Icon(
+                            Icons.notifications_outlined,
+                            size: 30,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 20),
 
-                    // Greeting
+                    // 👋 Greeting
                     const Text(
                       'Good Morning!',
                       style: TextStyle(
@@ -128,65 +153,124 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 20),
 
-                    // Location & Weather
-                    Row(
-                      children: const [
-                        Icon(Icons.location_on, color: Colors.red, size: 20),
-                        SizedBox(width: 5),
-                        Text(
-                          'Keshri Nagar, Patna',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                    /// 📍 Location & 🌤 Weather
+                    Consumer<WeatherViewModel>(
+                      builder: (context, weatherVM, child) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            // Location Row
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                const Icon(
+                                  Icons.location_on,
+                                  color: Colors.red,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  (weatherVM.area.isNotEmpty &&
+                                      weatherVM.city.isNotEmpty)
+                                      ? '${weatherVM.area}, ${weatherVM.city}'
+                                      : '',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+
+                            // Weather Row
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                const Icon(
+                                  Icons.wb_sunny,
+                                  color: Colors.orange,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  (weatherVM.temperature.isNotEmpty &&
+                                      weatherVM.condition.isNotEmpty)
+                                      ? '${weatherVM.temperature} - ${weatherVM.condition}'
+                                      : '',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
                     ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: const [
-                        Icon(Icons.wb_sunny, color: Colors.orange, size: 20),
-                        SizedBox(width: 5),
-                        Text(
-                          '22.2°C - Clear',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
+
                     const SizedBox(height: 25),
 
-                    // Banner
-                    Container(
-                      height: 180,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: const Color(0xFFFF6B35).withOpacity(0.2),
+                    // 🟧 Banner
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        height: 200,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 3),
+                        enlargeCenterPage: true,
+                        viewportFraction: 1.0,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            activeIndex = index;
+                          });
+                        },
                       ),
-                      child: const Center(
-                        child: Text(
-                          'Eemotrack Banner',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFFF6B35),
-                          ),
+                      items: bannerImages.map((imagePath) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                image: DecorationImage(
+                                  image: AssetImage(imagePath),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      }).toList(),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // Dots Indicator
+                    Center(
+                      child: AnimatedSmoothIndicator(
+                        activeIndex: activeIndex,
+                        count: bannerImages.length,
+                        effect: const ExpandingDotsEffect(
+                          activeDotColor: Color(0xFFFF6B35),
+                          dotColor: Colors.grey,
+                          dotHeight: 8,
+                          dotWidth: 8,
+                          spacing: 5,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
 
-                    // Menu Grid
+                    const SizedBox(height: 20),
+
+                    // 🧩 Menu Grid
                     GridView.count(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount: 4,
                       mainAxisSpacing: 20,
-                      crossAxisSpacing: 15,
+                      crossAxisSpacing: 20,
                       children: [
                         _buildMenuItem(
                           icon: Icons.directions_car,
@@ -245,16 +329,25 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
+        currentIndex: _selectedIndex,backgroundColor: Colors.white,
         onTap: _onBottomNavTap,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: const Color(0xFFFF6B35),
         unselectedItemColor: Colors.grey,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.local_shipping_outlined), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.description_outlined), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.home,size: 30,), label: ''),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.directions_car_filled,size: 30,),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.description_outlined,size: 30,),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings_outlined,size: 30,),
+            label: '',
+          ),
         ],
       ),
     );
@@ -269,14 +362,14 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey[100],
+          color: Color(0xFFFF6B35).withOpacity(0.2),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 35, color: Colors.black),
-            const SizedBox(height: 8),
+            Icon(icon, size: 25, color: Color(0xFFFF6B35)),
+
             Text(
               label,
               style: const TextStyle(

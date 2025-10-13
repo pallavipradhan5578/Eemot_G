@@ -94,17 +94,17 @@ class AuthViewModel extends ChangeNotifier {
 
   String _getErrorMessage(String error) {
     if (error.contains('Internet connection')) {
-      return 'Internet connection nahi hai. WiFi/Data check karo.';
+      return ' No Internet connection . check WiFi/Data .';
     } else if (error.contains('timeout')) {
-      return 'Server response slow hai. Thodi der baad try karo.';
+      return 'Server response slow . please try again.';
     } else if (error.contains('Validation')) {
       return error.replaceAll('Exception: ', '');
     } else if (error.contains('401') || error.contains('422')) {
-      return 'Email ya Password galat hai.';
+      return 'Email or Password is  wrong.';
     } else if (error.contains('Server error') || error.contains('500')) {
-      return 'Server mein problem hai. Thodi der baad try karo.';
+      return 'Server problem .  try again.';
     } else {
-      return 'Kuch galat ho gaya. Phir se try karo.';
+      return 'try again.';
     }
   }
 }
