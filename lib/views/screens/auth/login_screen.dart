@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:gps/views/widgets/custom_button.dart';
 import 'package:gps/views/widgets/custom_textfield.dart';
 import 'package:gps/core/utils/validators.dart';
+import '../../../core/constants/app_colors.dart';
 import '../../../view_models/auth_viewmodels.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -35,13 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (success && mounted) {
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(
-        //     content: Text('Login Successful! ✅'),
-        //     backgroundColor: Colors.green,
-        //   ),
-        // );
-        // Navigate to home
+
         Navigator.pushReplacementNamed(context, '/home');
       } else if (mounted && authViewModel.errorMessage != null) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -208,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: const Icon(
                             Icons.headset_mic,
-                            color: Colors.white,
+                            color: AppColors.secondaryColor,
                             size: 30,
                           ),
                         ),

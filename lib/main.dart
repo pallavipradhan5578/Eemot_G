@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gps/view_models/auth_viewmodels.dart';
 import 'package:gps/view_models/location_viewmodels.dart';
 import 'package:gps/view_models/weather_viewmodel.dart';
-import 'package:gps/views/screens/auth/home_screen.dart';
+import 'package:gps/views/screens/home/home_screen.dart';
 import 'package:gps/views/screens/auth/spalsh_screen.dart';
 import 'package:provider/provider.dart';
 
