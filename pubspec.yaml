@@ -43,6 +43,8 @@ dependencies:
   geocoding: ^3.0.0
   permission_handler: ^11.0.1
   smooth_page_indicator:
+  image_picker:
+  intl:
 
 
 dev_dependencies:

@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // Pages for bottom navigation
   late final List<Widget> _pages = [
     _buildHomeContent(),
-    const MyVehicleScreen(),
+    const AddVehicleScreen(),
     const ComplainScreen(),
     const SettingScreen(),
   ];
