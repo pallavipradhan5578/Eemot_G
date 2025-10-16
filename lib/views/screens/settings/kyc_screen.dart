@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
-import 'home_screen.dart';
+import '../home/home_screen.dart';
 
-class ComplainScreen extends StatefulWidget {
-  const ComplainScreen({super.key});
+class KycScreen extends StatefulWidget {
+  const KycScreen({super.key});
 
   @override
-  State<ComplainScreen> createState() => _ComplainScreenState();
+  State<KycScreen> createState() => _KycScreenState();
 }
 
-class _ComplainScreenState extends State<ComplainScreen> {
+class _KycScreenState extends State<KycScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: AppColors.primaryColor,title: Text(
-        "Complain",
-        style: TextStyle(color:AppColors.secondaryColor, fontWeight: FontWeight.bold),
+        "KYC",
+        style: TextStyle(color: AppColors.secondaryColor, fontWeight: FontWeight.bold),
       ),
         leading: IconButton(
           onPressed: () {
@@ -28,7 +28,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
           icon: Icon(Icons.arrow_back_ios_new_rounded,color: AppColors.secondaryColor,),
         ),
       ),
-      body: Center(child: Text("Complain Screen")),
+      body: Center(child: Text("KYC Screen")),
     );
   }
 }

@@ -183,13 +183,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     : '',
                                 style: const TextStyle(
                                   fontSize: 16,
-                                  color: Colors.blue,
+                                  color: Colors.green,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 8),
+                         // const SizedBox(height: 8),
 
                           // Weather Row
                           Row(
@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               const Icon(
                                 Icons.wb_sunny,
-                                color: AppColors.primaryColor,
+                                color: Colors.orange,
                                 size: 20,
                               ),
                               const SizedBox(width: 5),
@@ -207,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     : '',
                                 style: const TextStyle(
                                   fontSize: 16,
-                                  color: Colors.blue,
+                                  color: Colors.green,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),

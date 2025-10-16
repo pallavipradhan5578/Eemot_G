@@ -35,8 +35,8 @@ class _MyVehicleScreenState extends State<MyVehicleScreen> {
         ),
       ),
       floatingActionButton: SizedBox(
-        height: 60, // height bada karo
-        width: 160, // width bada karo
+        height: 60,
+        width: 160,
         child: FloatingActionButton.extended(
           backgroundColor: AppColors.primaryColor, // button color
           onPressed: () {
@@ -53,11 +53,11 @@ class _MyVehicleScreenState extends State<MyVehicleScreen> {
               color: AppColors.secondaryColor,
             ),
           ),
-          icon: const Icon(Icons.add,size: 50, color: AppColors.secondaryColor),
+          icon: const Icon(Icons.add,size: 30, color: AppColors.secondaryColor),
         ),
       ),
       floatingActionButtonLocation:
-          FloatingActionButtonLocation.endFloat, // same bottom-right
+          FloatingActionButtonLocation.endFloat,
     );
   }
 }

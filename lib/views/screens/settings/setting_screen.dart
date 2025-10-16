@@ -4,23 +4,26 @@ import 'package:gps/views/screens/settings/privacy_policy.dart';
 import 'package:gps/views/screens/home/profile_screen.dart';
 import 'package:gps/views/screens/settings/recharge_screen.dart';
 import 'package:gps/views/screens/settings/terms_and_condition.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../home/home_screen.dart';
 import 'about_us_screen.dart';
 import '../auth/login_screen.dart';
 import 'contact_us_screen.dart';
+import 'kyc_screen.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
 
   final List<Map<String, dynamic>> menuItems = const [
     {'icon': Icons.person, 'title': 'Profile'},
+     {'icon': Icons.verified_user, 'title': 'Kyc'},
     {'icon': Icons.account_balance_wallet, 'title': 'Recharge'},
     {'icon': Icons.info_outline, 'title': 'About Us'},
     {'icon': Icons.phone, 'title': 'Contact Us'},
     {'icon': Icons.privacy_tip_outlined, 'title': 'Privacy Policy'},
     {'icon': Icons.description_outlined, 'title': 'Terms And Condition'},
+    {'icon': Icons.share, 'title': 'Share App'},
     {'icon': Icons.logout, 'title': 'Logout'},
   ];
 
@@ -32,6 +35,13 @@ class SettingScreen extends StatelessWidget {
           MaterialPageRoute(builder: (_) => const ProfileScreen()),
         );
         break;
+       case 'Kyc':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const KycScreen()),
+        );
+        break;
+
       case 'Recharge':
         Navigator.push(
           context,
@@ -50,6 +60,7 @@ class SettingScreen extends StatelessWidget {
           MaterialPageRoute(builder: (_) => const ContactUsScreen()),
         );
         break;
+
       case 'Privacy Policy':
         Navigator.push(
           context,
@@ -62,6 +73,16 @@ class SettingScreen extends StatelessWidget {
           MaterialPageRoute(builder: (_) => const TermsScreen()),
         );
         break;
+      case 'Share App':
+        Share.share(
+          '🚗 Download Eemot Smart GPS App:\n\n'
+              'Track your vehicle, manage devices, and more with the Eemot Smart GPS App.\n\n'
+              '📥 Download Now: https://eemotrack.com/frontend/assets/app/eemot-smart.apk',
+          subject: 'Eemot Smart GPS App',
+        );
+        break;
+
+
       case 'Logout':
         () async {
           final prefs = await SharedPreferences.getInstance();
