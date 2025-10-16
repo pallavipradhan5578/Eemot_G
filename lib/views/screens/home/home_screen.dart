@@ -2,11 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gps/core/constants/app_colors.dart';
 import 'package:gps/views/screens/home/compain_screen.dart';
-import 'package:gps/views/screens/home/my_vehicle_screen.dart';
 import 'package:gps/views/screens/settings/setting_screen.dart' hide ProfileScreen;
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../view_models/weather_viewmodel.dart';
+import '../settings/recharge_screen.dart';
+import 'My_vehicle_screen.dart';
+import 'add_vehicle_screen.dart';
 import 'map_screen.dart';
 import 'profile_screen.dart';
 import '../../../view_models/auth_viewmodels.dart';
@@ -47,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // Pages for bottom navigation
   late final List<Widget> _pages = [
     _buildHomeContent(),
-    const AddVehicleScreen(),
+    const MyVehicleScreen (),
     const ComplainScreen(),
     const SettingScreen(),
   ];
@@ -279,12 +281,27 @@ class _HomeScreenState extends State<HomeScreen> {
                       _buildMenuItem(
                         icon: Icons.directions_car,
                         label: 'Vehicle',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyVehicleScreen(),
+                            ),
+                          );
+
+                        },
                       ),
                       _buildMenuItem(
                         icon: Icons.phonelink,
                         label: 'Recharge',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RechargeScreen(),
+                            ),
+                          );
+                        },
                       ),
                       _buildMenuItem(
                         icon: Icons.route,
@@ -316,7 +333,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       _buildMenuItem(
                         icon: Icons.report_problem_outlined,
                         label: 'Complain',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ComplainScreen(),
+                            ),
+                          );
+                        },
                       ),
                       _buildMenuItem(
                         icon: Icons.more_horiz,

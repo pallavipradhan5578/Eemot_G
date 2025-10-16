@@ -14,7 +14,10 @@ class _ComplainScreenState extends State<ComplainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: AppColors.primaryColor,
+      appBar: AppBar(backgroundColor: AppColors.primaryColor,title: Text(
+        "Complain",
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
         leading: IconButton(
           onPressed: () {
             Navigator.pushReplacement(

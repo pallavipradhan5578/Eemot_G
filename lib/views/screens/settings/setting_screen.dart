@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gps/core/constants/app_colors.dart';
 import 'package:gps/views/screens/settings/privacy_policy.dart';
 import 'package:gps/views/screens/home/profile_screen.dart';
 import 'package:gps/views/screens/settings/recharge_screen.dart';
 import 'package:gps/views/screens/settings/terms_and_condition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../home/home_screen.dart';
 import 'about_us_screen.dart';
 import '../auth/login_screen.dart';
 import 'contact_us_screen.dart';
@@ -79,18 +81,22 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.secondaryColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: const Color(0xFFFF6B35),
+        backgroundColor: AppColors.primaryColor,
         leading: IconButton(
           icon:
-          const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+          const Icon(Icons.arrow_back_ios_new_rounded, color:AppColors.secondaryColor),
+          onPressed: ()  {Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
+  },
         ),
         title: const Text(
           'Settings',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(color: AppColors.secondaryColor, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -120,19 +126,19 @@ class SettingScreen extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFF6B35).withOpacity(0.3),
+                      color: AppColors.primaryColor.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
                       children: [
-                        Icon(item['icon'], size: 30, color: Colors.black),
+                        Icon(item['icon'], size: 30, color:AppColors.blackColor),
                         const SizedBox(width: 15),
                         Text(
                           item['title'],
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: AppColors.blackColor,
                           ),
                         ),
                       ],
@@ -146,7 +152,7 @@ class SettingScreen extends StatelessWidget {
               child: Text(
                 'Version 1.0.0',
                 style: TextStyle(
-                    color: Color(0xFFFF6B35), fontWeight: FontWeight.bold),
+                    color: AppColors.primaryColor, fontWeight: FontWeight.bold),
               ),
             ),
           ],

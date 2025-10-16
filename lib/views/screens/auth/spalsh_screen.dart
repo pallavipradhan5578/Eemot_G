@@ -3,6 +3,10 @@ import 'dart:async';
 import 'dart:math';
 import 'package:gps/views/screens/auth/register_screen.dart';
 
+import '../../../core/services/storage_service.dart';
+import '../home/home_screen.dart';
+import 'login_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -22,25 +26,38 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    _startAnimationAndCheckLogin();
+  }
 
-    // Randomly change dots size every 300ms
+  void _startAnimationAndCheckLogin() async {
+    // Start the dots animation
     _timer = Timer.periodic(const Duration(milliseconds: 400), (timer) {
       setState(() {
-        _dot1Size = 12 + _random.nextDouble() * 12; // 12 to 24
+        _dot1Size = 12 + _random.nextDouble() * 12;
         _dot2Size = 12 + _random.nextDouble() * 12;
         _dot3Size = 12 + _random.nextDouble() * 12;
       });
     });
 
-    // Navigate to Login after 3 seconds
-    Timer(const Duration(seconds: 5), () {
-      _timer.cancel();
+    // Wait 5 seconds for splash effect
+    await Future.delayed(const Duration(seconds: 5));
+
+    // Stop animation
+    _timer.cancel();
+
+    // Check if user is logged in
+    bool loggedIn = await StorageService.isLoggedIn();
+
+    if (mounted) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const RegisterScreen()),
+        MaterialPageRoute(
+          builder: (_) => loggedIn ? const HomeScreen() : const LoginScreen(),
+        ),
       );
-    });
+    }
   }
+
 
   @override
   void dispose() {
